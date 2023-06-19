@@ -3,6 +3,8 @@ package screens;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import fileOperations.fileOperations;
+
 public class welcomeScreen implements screenInterface {
 
     private ArrayList<String> options = new ArrayList<>();
@@ -16,13 +18,12 @@ public class welcomeScreen implements screenInterface {
 
     @Override
     public void Show() {
-        // TODO Auto-generated method stub
         System.out.println("Main Menu");
         for(String option: options){
             System.out.println(option);
         }
     }
-    
+
     @Override
     public void GetUserInput() {
         Scanner input = new Scanner(System.in);
@@ -40,26 +41,28 @@ public class welcomeScreen implements screenInterface {
 
     @Override
     public void NavigateOption(int option) {
-        // TODO Auto-generated method stub
        switch (option) {
         case 1:
-            this.ShowFiles();
+            fileOperations fileOperationsObj = new fileOperations();
+            fileOperationsObj.showFiles();
             this.Show();
             break;
         case 2:
-            // show file opions, need to make modular
-            System.out.println("File Options will appear here");
+            filesOptionScreen showFileOptionScreen = new filesOptionScreen();
+            showFileOptionScreen.GetUserInput();
+            this.Show();
             break;
         default:
-            System.out.println("Please enter a valid option");
-            break;
+            if(option==3){
+                System.out.println("Thank you for using LockedMe, hope to see you again.");
+                break;
+            }
+            else{
+                System.out.println("Please enter a valid option");
+                break;
+            }
        }
     }
 
-    public void ShowFiles() {
-
-        System.out.println("List of Files: ");
-
-    }
-    
 }
+    
