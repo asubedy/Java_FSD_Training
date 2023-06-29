@@ -1,9 +1,6 @@
 package com.SportyShoes.productDetails;
 
 
-import lombok.Data;
-
-
 public class ProductDTO {
 
 	private int prod_id;
