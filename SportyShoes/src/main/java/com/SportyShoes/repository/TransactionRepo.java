@@ -2,13 +2,13 @@ package com.SportyShoes.repository;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.SportyShoes.entities.Transaction;
-import com.SportyShoes.entities.User;
+
 
 public interface TransactionRepo extends JpaRepository<Transaction, Integer> {
 	
