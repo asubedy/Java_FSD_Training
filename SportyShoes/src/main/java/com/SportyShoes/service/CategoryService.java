@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SportyShoes.productDetails.Categories;
+import com.SportyShoes.entities.Categories;
 import com.SportyShoes.repository.CategoryRepo;
 
 @Service

@@ -1,4 +1,4 @@
-package com.SportyShoes.productDetails;
+package com.SportyShoes.entities;
 
 
 public class ProductDTO {

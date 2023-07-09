@@ -1,4 +1,6 @@
-package com.SportyShoes.transaction;
+package com.SportyShoes.entities;
+
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,21 +15,25 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int trans_id;
-	private String date;
+	private Date date;
+	private int pid;
 	private String productName;
+	private int cid;
 	private String categoryName;
+	private String userName;
 	public int getTrans_id() {
 		return trans_id;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	public void setTrans_id(int trans_id) {
 		this.trans_id = trans_id;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+	
 	public String getProductName() {
 		return productName;
 	}
@@ -39,6 +45,24 @@ public class Transaction {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+	public int getCid() {
+		return cid;
+	}
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
 	
 }

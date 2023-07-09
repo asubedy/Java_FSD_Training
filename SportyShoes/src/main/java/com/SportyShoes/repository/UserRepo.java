@@ -1,9 +1,22 @@
 package com.SportyShoes.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
-import com.SportyShoes.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.SportyShoes.entities.User;
 
 public interface UserRepo extends JpaRepository<User, Integer> {
+	
+	List<User> findByUserNameAndPassword(String userName, String password);
 
+	Optional<User> findByToken(String token);
+
+	Optional<User> findByTokenNotNull();
+
+	List<User> findByUserName(String userName);
+
+	Optional<User> findByRole(String string);
 }

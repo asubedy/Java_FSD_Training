@@ -1,4 +1,4 @@
-package com.SportyShoes.productDetails;
+package com.SportyShoes.entities;
 
 //import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
