@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,10 +33,6 @@ public class UserController {
 	@Autowired 
 	TransactionRepo transactionRepo;
 	
-	@GetMapping("/allUser")
-	public List<User> getAllUser() {
-		return userRepo.findAll();
-	}
 	
 	@PostMapping("/registerUser")
 	public ResponseEntity<User> registerUser(@RequestBody User userDetails) {
@@ -46,8 +41,6 @@ public class UserController {
 
 		     User savedUser = userRepo.save(userDetails);
 		     return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
-//			User _userDetails = userRepo.save(new User(userDetails.getU_id(),userDetails.getUserName(),userDetails.getUserEmail(),userDetails.getPassword(),userDetails.getRole()));
-//			return new ResponseEntity<>(_userDetails, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -58,27 +51,17 @@ public class UserController {
 		
 		String username = userDetails.getUserName();
 		String passWord = userDetails.getPassword();
-		
-		// Check if there is already a logged-in user
-//	    Optional<User> optionalLoggedInUser = userRepo.findByTokenNotNull();
-//	    User loggedInUser = optionalLoggedInUser.get();
-//	    if (optionalLoggedInUser.isPresent()&&loggedInUser.getRole()!="") {
-//	        if (loggedInUser.getUserName().equals(username)) {
-//	            return new ResponseEntity<>("You are already logged in.", HttpStatus.OK);
-//	        } else {
-//	            return new ResponseEntity<>("Another user is already logged in. Logout First", HttpStatus.CONFLICT);
-//	        }
-//	    }
-		
+		System.out.println(username);
+		System.out.println(passWord);
 		List<User> fetchUser = userRepo.findByUserNameAndPassword(username, passWord);
-		User user = fetchUser.get(0);
-		 if (!fetchUser.isEmpty() && user.getRole()=="ROLE_USER") {
-	            
+		String role = fetchUser.get(0).getRole();
+		 if ((!fetchUser.isEmpty()) && ("ROLE_USER".equals(role))) {
+			 User user = fetchUser.get(0);
 	            // Generate and set the token for the user
 	            String token = TokenGenerator.generateToken(); 
 	            user.setToken(token);
 	            userRepo.save(user);
-	            return new ResponseEntity<>(token, HttpStatus.OK);
+	            return new ResponseEntity<>("User Successfully Logged in with token: "+token, HttpStatus.OK);
 	        } else {
 	            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
 	        }
@@ -102,11 +85,8 @@ public class UserController {
 	public String buyProduct(@PathVariable int productId, @RequestParam String userName) {
 		
 		Optional<Products> products= productRepo.findById(productId);
-		System.out.println(products.get());
-//		Products [prod_id=52, prod_name=aleepss, price=0.0, category=Categories [cat_id=1, cat_name=basketball]]
-		System.out.println("Prod id "+products.get().getProd_id());
-		System.out.println("Cat namee "+products.get().getCategory().getCat_name());
 		if(products.isPresent()) {
+			
 			Products product = products.get();
 			Transaction trn = new Transaction();
 			

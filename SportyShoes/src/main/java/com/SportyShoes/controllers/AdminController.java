@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 //import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +50,6 @@ public class AdminController {
 	@Autowired
 	TransactionRepo transactionRepo;
 	
-	// user controllers
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> adminLogin(@RequestBody User userDetails){
@@ -69,6 +69,22 @@ public class AdminController {
 		}
 		
 	}
+	@PutMapping("/changePassword")
+	public ResponseEntity<String> adminChangePassword(@RequestBody User userDetails){
+		String userNameString = userDetails.getUserName();
+		String userPasswordString = userDetails.getPassword();
+		
+		List<User> fetchedUser=userRepo.findByUserName(userNameString);
+		User adminUser = fetchedUser.get(0);
+		if(!fetchedUser.isEmpty()&& adminUser.getRole()!="ROLE_ADMIN") {
+			adminUser.setPassword(userPasswordString);
+			userRepo.save(adminUser);
+			return new ResponseEntity<>("Password Successfully changed. New password: "+userPasswordString, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>("Login Unauthorized ", HttpStatus.UNAUTHORIZED);
+		}
+	}
 	
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<List<User>> getAllUsers(){
@@ -87,9 +103,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/getAllCat")
-	public  String getAllCat() {
+	public  List<Categories> getAllCat() {
 
-		return categoryService.getAllCategories().toString();
+		return categoryService.getAllCategories()	;
 		
 	}
 	
@@ -104,26 +120,25 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/delCat/{id}")
-	public ResponseEntity<HttpStatus> delcat(@PathVariable("id") int id) {
+	public ResponseEntity<String> delcat(@PathVariable("id") int id) {
 		try {
 			adminCatRepo.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>("Category with Category id "+id+" deleted",HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-//	@PutMapping("/adminUpdateCat")
 	
 	@GetMapping("/getAllProd")
-	public  String getAllProd() {
-
-		return adminProdRepo.findAll().toString();
+	public  List<Products> getAllProducts() {
+			
+		return adminProdRepo.findAll();
 		
 	}
-	
-//	make sure to make make a get request before post mapping to get all the available categories in the database
+
+
 	
 	@PostMapping("/addProd")
 	public ResponseEntity<Products> addProd(@RequestBody ProductDTO productDTO) {
@@ -135,7 +150,6 @@ public class AdminController {
 			_product.setCategory(adminCatRepo.findById(productDTO.getCat_id()).get());
 			
 			adminProdRepo.save(_product);
-//			Products _product = adminProdRepo.save(new Products(product.getProd_id(),product.getProd_name(),product.getPrice(),product.getCategory()));
 			return new ResponseEntity<>(_product, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -143,10 +157,10 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/delProd/{id}")
-	public ResponseEntity<HttpStatus> delProd(@PathVariable("id") int id) {
+	public ResponseEntity<String> delProd(@PathVariable("id") int id) {
 		try {
 			adminProdRepo.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>("Product with product id "+id+" deleted",HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -201,8 +215,8 @@ public class AdminController {
 		User user = adminUser.get();
 		
 		if(adminUser.isPresent()&& user.getToken()!=null) {
-			List<User> transactions  = userRepo.findByUserName(userName);
-	        return new ResponseEntity<>(transactions, HttpStatus.OK);
+			List<User> searchedUser  = userRepo.findByUserName(userName);
+	        return new ResponseEntity<>(searchedUser, HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
