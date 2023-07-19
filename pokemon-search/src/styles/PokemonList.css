@@ -1,0 +1,9 @@
+/* PokemonList.css (create a new file named PokemonList.css in the same folder as PokemonList.js) */
+
+.pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Add spacing between cards */
+  }
+  

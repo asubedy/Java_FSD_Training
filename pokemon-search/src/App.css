@@ -1,0 +1,11 @@
+/* App.css (update the existing App.css file) */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #fddb92 0%, #22a6b3 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
