@@ -1,4 +1,4 @@
-/* PokemonCard.css (create a new file named PokemonCard.css in the same folder as PokemonCard.js) */
+
 
 .pokemon-card {
     display: flex;
@@ -8,16 +8,16 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    /* cursor: pointer; */
+  
     transition: transform 0.2s ease-in-out;
-    min-width: 200px; /* Set a minimum width for the card */
-    max-width: 250px; /* Set a maximum width for the card */
+    min-width: 200px; 
+    max-width: 250px; 
   }
   
   .pokemon-card img {
-    width: 150px; /* Adjust the image size */
+    width: 150px; 
     height: 150px;
-    object-fit: contain; /* Maintain aspect ratio of the image */
+    object-fit: contain; 
   }
   
   .pokemon-card h3 {

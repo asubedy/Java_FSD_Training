@@ -1,7 +1,6 @@
-// SearchBar.js
 
 import React, { useState } from 'react';
-import './SearchBar.css'; // Import the CSS file for styles
+import '../styles/SearchBar.css'; 
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,6 +24,7 @@ const SearchBar = ({ onSearch }) => {
   return (
     <div className="search-container">
       <input
+        id='search'
         type="text"
         placeholder="Search Pokémon..."
         value={searchTerm}

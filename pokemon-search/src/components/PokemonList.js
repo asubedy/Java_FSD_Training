@@ -1,12 +1,10 @@
-// PokemonList.js
-
 import React, { useEffect, useState } from 'react';
-import { fetchAllPokemons } from './utils/api';
+import { fetchAllPokemons } from '../utils/api';
 import PokemonCard from './PokemonCard';
 import Pagination from './Pagination';
 import SearchBar from './SearchBar';
 import NoResultsFound from './NoResultsFound';
-import './PokemonList.css';
+import '../styles/PokemonList.css';
 
 const ITEMS_PER_PAGE = 10;
 

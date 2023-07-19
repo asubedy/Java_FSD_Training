@@ -1,8 +1,6 @@
-// Pagination.js
-
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import './Paginate.css'; // Import the CSS file for styles
+import '../styles/Paginate.css'; // Import the CSS file for styles
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const isFirstPage = currentPage === 1;
@@ -10,6 +8,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <ReactPaginate
+      id='paginate'
       previousLabel={'Previous'}
       nextLabel={'Next'}
       pageCount={totalPages}
@@ -23,6 +22,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       nextLinkClassName={isLastPage ? 'pagination-link disabled' : 'pagination-link'}
       breakClassName={'pagination-break'}
       pageClassName={'pagination-page'}
+      previousLinkIdName={'previous'}
+      nextLinkIdName={'next'}
     />
   );
 };

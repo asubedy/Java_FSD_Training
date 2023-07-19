@@ -1,8 +1,7 @@
-// NoResultsFound.js
+
 
 import React from 'react';
-import './NoResults.css'; // Import the CSS file for styles
-
+import '../styles/NoResults.css'; 
 const NoResultsFound = () => {
   return (
     <div className="no-results-container">

@@ -1,8 +1,7 @@
-// PokemonCard.js
 
 import React, { useEffect, useState } from 'react';
-import { fetchPokemonDetails } from './utils/api';
-import './PokemonCard.css'; // Import the CSS file for styles
+import { fetchPokemonDetails } from '../utils/api';
+import '../styles/PokemonCard.css'; // Import the CSS file for styles
 
 const PokemonCard = ({ url }) => {
   const [pokemon, setPokemon] = useState(null);
@@ -31,7 +30,7 @@ const PokemonCard = ({ url }) => {
 
   return (
     <div className="pokemon-card">
-      <h3>{name.toUpperCase()}</h3>
+      <h3 id='name'>{name.toUpperCase()}</h3>
       <img src={sprites.other.dream_world.front_default===null?sprites.front_default:sprites.other.dream_world.front_default} alt={name} />
       <p><strong>Attack</strong>: {attack}</p>
       <p><strong>HP</strong>: {hp}</p>

@@ -1,4 +1,3 @@
-// pokeapi.js
 
 import axios from 'axios';
 
@@ -17,7 +16,6 @@ export const fetchPokemonDetails = async (url) => {
   return response.data;
 };
 
-// utils/api.js
 
 export const fetchAllPokemons = async () => {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000');

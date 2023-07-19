@@ -1,8 +1,7 @@
-// Header.js
 
 import React from 'react';
-import '../styles/Header.css'; // Import the CSS file for styles
-import pokemonLogo from '../images/pokemon_logo.png'; // Import the image
+import '../styles/Header.css'; 
+import pokemonLogo from '../images/pokemon_logo.png'; 
 
 const Header = () => {
   return (
