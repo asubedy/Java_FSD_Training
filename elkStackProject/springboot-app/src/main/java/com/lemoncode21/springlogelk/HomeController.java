@@ -20,30 +20,24 @@ public class HomeController {
     @GetMapping("/")
     public String HomePage(){
         LocalDateTime localDateTime = LocalDateTime.now();
-        log.info("Welcome home Page " + localDateTime);
-        return "Welcome to Home page";
+        log.info("Home page accessed at " + localDateTime);
+        return "Home page. The logs can be seen in Kibana";
     }
 
-    @GetMapping("/logs")
-    public String LogsPage(){
-        LocalDateTime localDateTime = LocalDateTime.now();
-        log.info("This Logs page " + localDateTime);
-        return "Welcome to logs page";
-    }
 
     @GetMapping("/warn")
     public String WarnPage(){
         LocalDateTime localDateTime = LocalDateTime.now();
-        log.warn("This warn page " + localDateTime);
-        return "Welcome to warn page";
+        log.warn("Warning page accessed at " + localDateTime);
+        return "Warning page. Warning Logs has been sent to Kibana";
     }
 
 
-    @GetMapping("/er")
+    @GetMapping("/err")
     public String ErrorPage(){
         LocalDateTime localDateTime = LocalDateTime.now();
-        log.error("This error page " + localDateTime);
-        return "Welcome to error page";
+        log.error("Error page accessed at " + localDateTime);
+        return "Error page! Error Logs has been sent to Kibana";
     }
 
 
