@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+              
+                git branch: 'main', credentialsId: '{{env.GIT_TOKEN}}', url: 'https://github.com/asubedy/Java_FSD_Training.git'
+            }
+        }
+
+        stage('Build Maven Project') {
+            steps {
+                sh "mvn clean package"
+            }
+        }
+
+        stage('Build and Push Docker Image') {
+            environment {
+                DOCKER_IMAGE_NAME = 'elk-app'
+                DOCKER_REGISTRY = 'aadisubedy'
+                DOCKER_IMAGE_TAG = 'latest'
+            }
+            steps {
+                // Build the Docker image
+                sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
+
+                // Tag the Docker image for the registry
+                sh "docker tag ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                
+                //login
+                sh "docker login -u 'aadisubedy' -p '{{env.DOCKER_PASSWORD}}'"
+                
+                // Push the Docker image to the registry
+                sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+            }
+        }
+    }
+}
